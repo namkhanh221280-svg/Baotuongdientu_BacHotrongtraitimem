@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góc Trò Chơi - Các câu hỏi trắc nghiệm Về Bác</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background: #0288d1;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-sizing: border-box;
+            border-bottom: 5px solid #fff200;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            background: rgba(0,0,0,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+
+        /* Container Trò chơi */
+        .quiz-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .question-card {
+            display: none; /* Ẩn các câu hỏi, chỉ hiện câu đang làm */
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .q-number { font-size: 1.5rem; color: #ff5252; font-weight: bold; }
+        .q-text { font-size: 1.8rem; margin: 20px 0; color: #333; }
+
+        /* Đáp án */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            padding: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: 3px solid #eee;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #fff;
+        }
+
+        .option-btn:hover { background: #e3f2fd; border-color: #2196f3; }
+
+        /* Phản hồi */
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            height: 40px;
+        }
+
+        .correct-msg { color: #4caf50; }
+        .wrong-msg { color: #f44336; }
+
+        /* Màn hình kết thúc */
+        #final-screen { display: none; }
+        .restart-btn {
+            background: #4caf50; color: white; border: none;
+            padding: 15px 30px; border-radius: 30px; font-size: 1.2rem;
+            cursor: pointer; margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="snd-correct" src="audio/chon.mp3"></audio>
+    <audio id="snd-wrong" src="audio/chonsai.mp3"></audio>
+    <audio id="snd-victory" src="audio/chienthang.mp3"></audio>
+
+    <div class="header">
+        <a href="index.html" class="back-btn">← Quay lại</a>
+        <span style="font-weight: bold; font-size: 1.2rem;">🌻 CÁC CÂU HỎI TRẮC NGHIỆM VỀ BÁC HỒ ❤️</span>
+        <div style="font-weight: bold;">Điểm: <span id="score">0</span></div>
+    </div>
+
+    <div class="quiz-container">
+        <div class="question-card active" id="q1" style="border-top: 10px solid #ff8a65; padding-top: 10px;">
+            <div class="q-number"> Câu 1</div>
+            <div class="q-text">Bác Hồ sinh vào ngày nào?</div>
+            <div class="options">
+                <div class="option-btn" onclick="check(this, true, 'q1', 'q2')">A. 19/5/1890</div>
+                <div class="option-btn" onclick="check(this, false, 'q1', 'q2')">B. 1/6/1890</div>
+                <div class="option-btn" onclick="check(this, false, 'q1', 'q2')">C. 2/9/1945</div>
+            </div>
+        </div>
+
+        <div class="question-card" id="q2" style="border-top: 10px solid #4fc3f7; padding-top: 10px;">
+            <div class="q-number"> Câu 2</div>
+            <div class="q-text">Quê hương của Bác Hồ ở tỉnh nào?</div>
+            <div class="options">
+                <div class="option-btn" onclick="check(this, false, 'q2', 'q3')">A. Quảng Ninh</div>
+                <div class="option-btn" onclick="check(this, true, 'q2', 'q3')">B. Nghệ An</div>
+                <div class="option-btn" onclick="check(this, false, 'q2', 'q3')">C. Hà Nội</div>
+            </div>
+        </div>
+
+        <div class="question-card" id="q3" style="border-top: 10px solid #aed581; padding-top: 10px;">
+            <div class="q-number"> Câu 3</div>
+            <div class="q-text">Bác Hồ rất yêu thương ai?</div>
+            <div class="options">
+                <div class="option-btn" onclick="check(this, true, 'q3', 'q4')">A. Thiếu nhi</div>
+                <div class="option-btn" onclick="check(this, false, 'q3', 'q4')">B. Người nước ngoài</div>
+                <div class="option-btn" onclick="check(this, false, 'q3', 'q4')">C. Chỉ người lớn</div>
+            </div>
+        </div>
+
+        <div class="question-card" id="q4" style="border-top: 10px solid #ffd54f; padding-top: 10px;">
+            <div class="q-number"> Câu 4</div>
+            <div class="q-text">Loài hoa nào thường gắn với Bác Hồ?</div>
+            <div class="options">
+                <div class="option-btn" onclick="check(this, false, 'q4', 'q5')">🌹 Hoa hồng</div>
+                <div class="option-btn" onclick="check(this, true, 'q4', 'q5')">🌻 Hoa sen</div>
+                <div class="option-btn" onclick="check(this, false, 'q4', 'q5')">🌼 Hoa cúc</div>
+            </div>
+        </div>
+
+        <div class="question-card" id="q5" style="border-top: 10px solid #ce93d8; padding-top: 10px;">
+            <div class="q-number"> Câu 5</div>
+            <div class="q-text">Học sinh cần làm gì để theo lời Bác?</div>
+            <div class="options">
+                <div class="option-btn" onclick="check(this, true, 'q5', 'end')">A. Chăm ngoan, học giỏi</div>
+                <div class="option-btn" onclick="check(this, false, 'q5', 'end')">B. Lười học</div>
+                <div class="option-btn" onclick="check(this, false, 'q5', 'end')">C. Vứt rác bừa bãi</div>
+            </div>
+        </div>
+
+        <div id="final-screen">
+            <h2 style="font-size: 3rem; color: #ff5252;">🎉 CHÚC MỪNG! 🎉</h2>
+            <p style="font-size: 1.5rem;">Em đã hoàn thành các câu hỏi trắc nghiệm về Bác!</p>
+            <p style="font-size: 2rem; font-weight: bold;">Điểm của em: <span id="final-score">0</span></p>
+            <button class="restart-btn" onclick="location.reload()">Làm lại trò chơi 🔄</button>
+        </div>
+
+        <div id="feedback"></div>
+    </div>
+
+    <script>
+        let score = 0;
+
+        function check(btn, isCorrect, currentId, nextId) {
+            const feedback = document.getElementById('feedback');
+            const scoreText = document.getElementById('score');
+
+            // Khóa không cho nhấn lại các đáp án khác trong cùng câu đó
+            const currentOptions = btn.parentElement.querySelectorAll('.option-btn');
+            currentOptions.forEach(opt => opt.style.pointerEvents = 'none');
+
+            if (isCorrect) {
+                // PHÁT ÂM THANH CHỌN ĐÚNG
+                document.getElementById('snd-correct').currentTime = 0;
+                document.getElementById('snd-correct').play().catch(e => console.log("Lỗi âm thanh:", e));
+
+                btn.style.background = "#c8e6c9";
+                btn.style.borderColor = "#4caf50";
+                feedback.innerHTML = "🎉 Chính xác!";
+                feedback.className = "correct-msg";
+                score += 20;
+                scoreText.innerText = score;
+            } else {
+                // PHÁT ÂM THANH CHỌN SAI
+                document.getElementById('snd-wrong').currentTime = 0;
+                document.getElementById('snd-wrong').play().catch(e => console.log("Lỗi âm thanh:", e));
+
+                btn.style.background = "#ffccbc";
+                btn.style.borderColor = "#f44336";
+                feedback.innerHTML = "🌼 Cố gắng thêm nhé!";
+                feedback.className = "wrong-msg";
+            }
+
+            // Chờ 1.5 giây rồi sang câu tiếp theo
+            setTimeout(() => {
+                feedback.innerHTML = "";
+                document.getElementById(currentId).classList.remove('active');
+                
+                if (nextId === 'end') {
+                    document.getElementById('final-screen').style.display = 'block';
+                    document.getElementById('final-score').innerText = score;
+
+                    // PHÁT ÂM THANH CHIẾN THẮNG NẾU ĐẠT TỪ 60 ĐIỂM TRỞ LÊN
+                    if (score >= 60) {
+                        document.getElementById('snd-victory').currentTime = 0;
+                        document.getElementById('snd-victory').play().catch(e => console.log("Lỗi âm thanh:", e));
+                    }
+                } else {
+                    document.getElementById(nextId).classList.add('active');
+                }
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

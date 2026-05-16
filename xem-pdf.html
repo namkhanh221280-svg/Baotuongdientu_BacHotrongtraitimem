@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem tài liệu Bác Hồ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #ed1c24;
+            --primary-yellow: #fff200;
+            --sky-blue: #e3f2fd;
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            background-color: var(--sky-blue);
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Toàn màn hình */
+            overflow: hidden;
+        }
+        .header-bar {
+            background: var(--primary-red);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid var(--primary-yellow);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .btn {
+            text-decoration: none;
+            color: var(--primary-red);
+            font-weight: bold;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn:hover {
+            background: var(--primary-yellow);
+            transform: scale(1.05);
+        }
+        .btn-back {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .btn-back:hover { background: white; color: var(--primary-red); }
+
+        #page-title { font-weight: bold; font-size: 1.1rem; }
+        .pdf-frame { flex-grow: 1; width: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <a href="index.html" class="btn btn-back">← Quay lại Trang Chủ</a>
+        
+        <div id="page-title">Tài liệu 1: Tiểu sử Bác Hồ</div>
+        
+        <div class="nav-controls">
+            <button class="btn" id="prevBtn" onclick="changePDF(1)" style="display:none;">← Trang trước</button>
+            <button class="btn" id="nextBtn" onclick="changePDF(2)">Xem trang kế tiếp →</button>
+        </div>
+    </div>
+    
+    <iframe id="pdfViewer" src="tieu su_ho-chi-minh_EDIT.pdf" class="pdf-frame"></iframe>
+
+    <script>
+        // 1. Bạn liệt kê danh sách các file PDF của bạn ở đây
+        const pdfFiles = [
+            { title: "Tài liệu 1: Tiểu sử Bác Hồ", file: "tieu su_ho-chi-minh_EDIT.pdf" },
+            { title: "Tài liệu 2: Bác Hồ với Giáo dục", file: "ts_2_bac-ho_112202284112_EDIT.pdf" }
+        ];
+
+        function changePDF(index) {
+            const iframe = document.getElementById('pdfViewer');
+            const title = document.getElementById('page-title');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+
+            if (index === 2) {
+                // Chuyển sang file thứ 2
+                iframe.src = pdfFiles[1].file;
+                title.innerText = pdfFiles[1].title;
+                nextBtn.style.display = 'none';
+                prevBtn.style.display = 'inline-block';
+            } else {
+                // Quay lại file thứ 1
+                iframe.src = pdfFiles[0].file;
+                title.innerText = pdfFiles[0].title;
+                nextBtn.style.display = 'inline-block';
+                prevBtn.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
