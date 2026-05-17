@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo tường điện tử: Bác Hồ trong trái tim em</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #ed1c24;
+            --primary-yellow: #fff200;
+            --sky-blue: #fce4ec; /* ĐÃ ĐỔI THÀNH MÀU CÁNH SEN NHẠT DƯỚI BANNER */
+            --lotus-pink: #fce4ec;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--sky-blue);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng hoa sen bay nhẹ */
+        .bg-decor {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Header / Trang bìa */
+        header {
+            background: linear-gradient(to bottom, var(--primary-red), #ff4d4d);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 10px solid var(--primary-yellow);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: heartBeat 2s infinite;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-yellow);
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Container chính */
+        .container {
+            max-width: 1000px;
+            margin: -30px auto 50px;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Giới thiệu */
+        .intro {
+            text-align: center;
+            font-style: italic;
+            font-size: 1.2rem;
+            border-left: 5px solid var(--primary-red);
+            background: var(--lotus-pink);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        /* Chia cột Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card chung */
+        .section-card {
+            background: #fff;
+            border: 3px dashed #ffc107;
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Bỏ gạch chân cho link */
+            color: inherit; /* Giữ màu chữ gốc */
+            
+            /* CẬP NHẬT: Giúp cố định nút bấm luôn nằm ở dưới đáy card */
+            display: flex; 
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            background: #fffdf5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-style: solid; /* Đổi sang nét liền khi hover */
+        }
+
+        /* CẬP NHẬT: Thêm khối bọc nội dung giữa để căn giữa ảnh và chữ */
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        /* CẬP NHẬT: Ép các hình ảnh luôn căn giữa chuẩn xác */
+        .card-content img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center; /* CẬP NHẬT: Đưa tiêu đề chữ và icon hoa sen vào giữa */
+            gap: 10px;
+            font-size: 1.4rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Mục 1: Đám mây (Đã chuyển thành link) */
+        .cloud-link {
+            background: #f0f8ff;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        
+        .cloud-link:hover {
+            background: #e1f5fe;
+        }
+
+        /* ĐỒNG BỘ NÚT BẤM TOÀN BỘ THEO MẪU MỤC 2 */
+        .btn-container-fixed {
+            margin-top: 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-style-fixed {
+            display: inline-block;
+            background: #ff4081; 
+            color: white; 
+            padding: 8px 20px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .section-card:hover .btn-style-fixed {
+            background: var(--primary-red);
+        }
+
+        /* Mục 3: Hoa sen */
+        .lotus-list {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+        .lotus-list li {
+            background: var(--lotus-pink);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
+
+        /* Mục 4: Video placeholder */
+        .video-box {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Mục 6: Điều em muốn nói */
+        .wish-tree {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center; /* Căn giữa các hình trái tim */
+        }
+        .heart-note {
+            background: #ff8a80;
+            color: white;
+            padding: 10px;
+            border-radius: 50% 50% 50% 0;
+            width: 80px;
+            height: 80px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transform: rotate(-10deg);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { margin: 10px; padding: 15px; }
+        }
+        
+        /* Hiệu ứng cánh sen rơi */
+        .petal {
+            position: fixed;
+            top: -50px;
+            z-index: 9999;
+            pointer-events: none;
+            background: radial-gradient(circle at 100% 0%, #ffc1e3 0%, #f48fb1 100%);
+            border-radius: 0 100% 0 100%; /* Tạo hình cánh hoa */
+            opacity: 0.7;
+            filter: blur(1px);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Định vị hình ảnh vào góc trái header */
+        .header-logo {
+            position: absolute;
+            left: 20px;          /* Cách lề trái 20px */
+            top: 20%;            /* Căn giữa theo chiều dọc */
+            transform: translateY(-50%); /* Chỉnh lại để giữa chuẩn hơn */
+            width: 90px;        /* Độ rộng của ảnh */
+            height: auto;        /* Giữ đúng tỉ lệ ảnh */
+            z-index: 10;         /* Đảm bảo ảnh nằm trên lớp nền đỏ */
+            border-radius: 10px; /* Bo góc ảnh */
+        }
+
+        header {
+            position: relative;
+            height: 300px; 
+            background: #ed1c24; 
+            overflow: hidden; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 10px solid var(--primary-yellow);
+        }
+
+        /* Lớp chứa ảnh trượt */
+        .photo-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; 
+            opacity: 0.4; 
+        }
+
+        .slider-track {
+            display: flex;
+            width: calc(600px * 10); 
+            animation: scrollSlide 25s linear infinite; 
+        }
+
+        .slider-track img {
+            width: 600px; 
+            height: 400px; 
+            object-fit: cover; 
+            padding: 0 5px; 
+        }
+
+        /* Nội dung chữ nằm trên cùng */
+        .header-content {
+            position: relative;
+            z-index: 10; 
+            text-align: center;
+            color: white;
+        }
+
+        /* KHAI BÁO CHUYỂN ĐỘNG TRƯỢT */
+        @keyframes scrollSlide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-600px * 5)); 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" src="audio/bacho.mp3" loop></audio>
+
+<audio id="clickSound" src="audio/click-sound.mp3"></audio>
+
+<header>
+    <img src="images/logo.png" class="header-logo" alt="Logo">
+    <div class="photo-slider">
+        <div class="slider-track">
+            <img src="images/Anh1.jpg" alt="Ảnh 1">
+            <img src="images/Anh2.png" alt="Ảnh 2">
+            <img src="images/Anh3.jpg" alt="Ảnh 3">
+            <img src="images/Anh4.png" alt="Ảnh 4">
+            <img src="images/Anh5.jpg" alt="Ảnh 5">            
+            <img src="images/Anh6.jpg" alt="Ảnh 6">
+            <img src="images/Anh7.jpg" alt="Ảnh 7">
+            <img src="images/Anh8.jpg" alt="Ảnh 8">
+            <img src="images/Anh9.jpg" alt="Ảnh 9">                                    
+        </div>
+    </div>
+    <div class="header-content">
+        <div class="stars"></div>
+        <h1>BÁC HỒ TRONG TRÁI TIM EM</h1>
+        <p>“Thiếu nhi Việt Nam kính yêu Bác Hồ”</p>
+    </div>
+</header>
+
+<div class="container">
+    <div class="intro">
+        🌻 <b>"Bác Hồ luôn yêu thương thiếu nhi Việt Nam. Chúng em luôn kính yêu và nhớ ơn Bác. 
+        Trang báo là tình cảm của chúng em gửi tới Bác Hồ kính yêu." </b> 🌻
+    </div>
+
+    <div class="grid">
+        <a href="xem-pdf.html" class="section-card cloud-link">
+            <h2>🌼 EM TÌM HIỂU VỀ BÁC</h2>
+            <div class="card-content">
+                <ul style="text-align: left; width: 100%;">
+                    <li><strong>Ngày sinh:</strong> 19/5/1890</li>
+                    <li><strong>Quê hương:</strong> Làng Sen, Nghệ An</li>
+                    <li>Bác dành cả đời vì độc lập dân tộc.</li>
+                    <li>Bác rất yêu thương các cháu thiếu niên, nhi đồng.</li>
+                </ul>
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Xem tư liệu chi tiết ➔</span>
+            </div>
+        </a>
+
+        <a href="xem-pdf-thieunhi.html" class="section-card">
+            <h2>🌼 BÁC HỒ VỚI THIẾU NHI</h2>
+            <div class="card-content">
+                <b>❤️ Thiếu nhi Việt Nam: Học tập tốt, đoàn kết tốt.</b>
+                <b>❤️ Thực hiện tốt 5 điều Bác Hồ dạy.</b>              
+                <img src="images/bh_tn.jpg" alt="Bác Hồ với thiếu nhi" style="border-radius: 20px; width: 80%; transition: 0.3s;">      
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Xem tư liệu chi tiết ➔</span>
+            </div>
+        </a>
+
+        <div class="section-card cloud-link">
+            <h2>🌼 5 ĐIỀU BÁC HỒ DẠY</h2>
+            <div class="card-content">
+                <ul class="lotus-list">
+                    <b><li>⭐ 1. Yêu Tổ quốc, yêu đồng bào</li></b>
+                    <b><li>⭐ 2. Học tập tốt, lao động tốt</li></b>
+                    <b><li>⭐ 3. Đoàn kết tốt, kỉ luật tốt</li></b>
+                    <b><li>⭐ 4. Giữ gìn vệ sinh thật tốt</li></b>
+                    <b><li>⭐ 5. Khiêm tốn, thật thà, dũng cảm</li></b>
+                </ul>
+            </div>
+        </div>
+        
+        <a href="Bac-ho-voi-quang-ninh.html" class="section-card">
+            <h2>🌼 BÁC HỒ VỚI QUẢNG NINH</h2>
+            <div class="card-content">
+                <img src="images/bh.jpg" alt="Bác Hồ với Quang Ninh" style="border-radius: 20px; width: 80%; transition: 0.3s;"> 
+                <p style="font-weight: bold; margin-top: 10px; color: #ed1c24;">
+                    🌻 Quảng Ninh – Nơi ghi dấu 9 lần Bác Hồ về thăm, mãi mãi khắc ghi trong lòng dân!
+                </p>
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Xem tư liệu chi tiết ➔</span>
+            </div>
+        </a>
+
+        <a href="vuon-hoa-viec-tot.html" class="section-card">
+            <h2>🌼 VƯỜN HOA - VIỆC TỐT</h2>
+            <div class="card-content">
+                <img src="images/vh.jpg" alt="Bác Hồ với thiếu nhi" style="border-radius: 20px; width: 90%; transition: 0.3s;">
+                <p style="font-weight: bold; margin-top: 10px; color: #ed1c24;">
+                    🌻 "Chúng em luôn làm theo lời Bác!"
+                </p>
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Xem tư liệu chi tiết ➔</span>
+            </div>
+        </a>
+
+        <a href="xem-video.html" class="section-card">
+            <h2>🌼 VIDEO LÀM THEO LỜI BÁC</h2>
+            <div class="card-content">
+                <img src="images/ltlb.jpg" alt="Bác Hồ với thiếu nhi" style="border-radius: 20px; width: 90%; transition: 0.3s;">
+                <p style="font-weight: bold; margin-top: 10px; color: #ed1c24;">
+                    🌻 "Chúng em luôn học tập và làm theo lời Bác!"
+                </p>
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Xem tư liệu chi tiết ➔</span>
+            </div>
+        </a>
+
+        <a href="xem-tho-nhac.html" class="section-card" style="background: #fff9c4;">
+            <h2>🌼 THƠ - BÀI HÁT VỀ BÁC</h2>
+            <div class="card-content">
+                <blockquote style="font-weight: bold; color: #d32f2f;">
+                    “Tháp Mười đẹp nhất bông sen<br>
+                    Việt Nam đẹp nhất có tên Bác Hồ.”
+                </blockquote>
+                <p>🎶 Nhấn để nghe nhạc và đọc thơ</p>
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Xem tư liệu chi tiết ➔</span>
+            </div>
+        </a>
+
+        <a href="loi-muon-noi_m.html" class="section-card">
+            <h2>🌼 ĐIỀU EM MUỐN NÓI</h2>
+            <div class="card-content">
+                <div class="wish-tree">
+                    <div class="heart-note" style="background: #ff4081;">Cháu hứa học giỏi</div>
+                    <div class="heart-note" style="background: #4caf50;">Học tập theo tấm gương Bác</div>
+                    <div class="heart-note" style="background: #2196f3;">Cháu ngoan Bác Hồ</div>
+                    <div class="heart-note" style="background: #ff9800;">Giúp đỡ bạn bè</div>
+                </div>
+                <p style="margin-top: 10px;">🌻 Em hãy gửi những điều em muốn nói về Bác cho cô giáo chủ nhiệm để cập nhật lên báo điện tử qua Zalo </p>
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Xem tư liệu chi tiết ➔</span>
+            </div>
+        </a>
+    
+        <a href="goc-tro-choi.html" class="section-card">
+            <h2>🌼 GÓC TRÒ CHƠI - CÂU HỎI VỀ BÁC HỒ</h2>
+            <div class="card-content">
+                <img src="images/bacho.jpg" alt="Bác Hồ với thiếu nhi" style="border-radius: 20px; width: 90%; transition: 0.3s;">
+                <p style="margin-top: 10px;">🌻 Hãy trả lời các câu hỏi về Bác Hồ</p>
+            </div>
+            <div class="btn-container-fixed">
+                <span class="btn-style-fixed">Nhấn để trả lời câu hỏi ➔</span>
+            </div>
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p><h2>Học sinh Khối 2 trường Tiểu học Mạo Khê. Phường Mạo Khê - Kỷ niệm 136 năm ngày sinh nhật Bác 19/5/1890 - 19/5/2026  </p></h2>
+</footer>
+
+<script>
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        
+        const size = Math.random() * 15 + 10 + 'px';
+        petal.style.width = size;
+        petal.style.height = size;
+        
+        petal.style.left = Math.random() * 100 + 'vw';
+        
+        const duration = Math.random() * 3 + 4 + 's';
+        petal.style.animation = `fall ${duration} linear forwards`;
+        
+        document.body.appendChild(petal);
+
+        setTimeout(() => {
+            petal.remove();
+        }, 7000);
+    }
+
+    setInterval(createPetal, 300);
+
+    // ĐOẠN ĐIỀU KHIỂN ĐỒNG THỜI CẢ NHẠC NỀN VÀ HIỆU ỨNG CLICK MỤC
+    window.addEventListener('DOMContentLoaded', () => {
+        const audio = document.getElementById('bgMusic');
+        const clickSound = document.getElementById('clickSound');
+        
+        // --- 1. ĐIỀU CHỈNH ÂM LƯỢNG TẠI ĐÂY ---
+        audio.volume = 0.3;       // Âm lượng nhạc nền (30%)
+        clickSound.volume = 0.6;  // Âm lượng tiếng click mục khi bấm (60%)
+
+        // --- 2. TỰ ĐỘNG MỞ NHẠC NỀN (BẢO MẬT TRÌNH DUYỆT) ---
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                const startAudio = () => {
+                    audio.play();
+                    document.removeEventListener('click', startAudio);
+                    document.removeEventListener('touchstart', startAudio);
+                };
+                document.addEventListener('click', startAudio);
+                document.addEventListener('touchstart', startAudio);
+            });
+        }
+
+        // --- 3. ĐOẠN PHÁT ÂM THANH KHI NHẤN VÀO BẤT KỲ MỤC (CARD) NÀO ---
+        const cards = document.querySelectorAll('.section-card');
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Đặt lại thời gian âm thanh về vị trí đầu (để bấm liên tục vẫn kêu tốt)
+                clickSound.currentTime = 0;
+                clickSound.play();
+            });
+        });
+    });
+</script>
+</body>
+</html>

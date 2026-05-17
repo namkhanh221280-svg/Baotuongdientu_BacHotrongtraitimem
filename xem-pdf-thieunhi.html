@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bác Hồ Với Thiếu Nhi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Quicksand', sans-serif; margin: 0; background-color: #fce4ec; overflow: hidden; }
+        .header-bar { 
+            background: #ff4081; padding: 15px; text-align: center; 
+            border-bottom: 5px solid #fff200; display: flex; justify-content: space-between; align-items: center;
+            box-sizing: border-box;
+            height: 65px;
+        }
+        .back-btn {
+            text-decoration: none; color: white; font-weight: bold;
+            background: rgba(255,255,255,0.3); padding: 8px 20px;
+            border-radius: 20px; transition: 0.3s; margin-left: 10px;
+        }
+        .back-btn:hover { background: white; color: #ff4081; }
+        .title { color: white; font-weight: bold; margin-right: 20px; }
+        
+        .video-container {
+            width: 100%;
+            height: calc(100vh - 65px);
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .main-video {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <a href="index.html" class="back-btn">← Quay lại Trang Chủ</a>
+        <span class="title">Bác Hồ với thiếu nhi</span>
+    </div>
+    
+    <div class="video-container">
+        <video id="multiVideoPlayer" class="main-video" controls autoplay>
+            Trình duyệt của bạn không hỗ trợ xem video này.
+        </video>
+    </div>
+
+    <script>
+        // --- DANH SÁCH CÁC ĐOẠN VIDEO (ĐÃ ĐỒNG BỘ ĐẦY ĐỦ) ---
+        // Đã đưa cả đoạn 1 và đoạn 2 vào trong mảng quản lý của danh sách phát
+        const videoPlaylist = [
+            "V_muc2_v1.mp4",
+            "V_muc2_v2.mp4"
+        ];
+
+        let currentVideoIndex = 0;
+        const player = document.getElementById('multiVideoPlayer');
+
+        // Hàm chuyển đổi và phát đoạn video theo số thứ tự (index)
+        function loadAndPlayVideo(index) {
+            if (index < videoPlaylist.length) {
+                currentVideoIndex = index;
+                player.src = videoPlaylist[index];
+                player.load();
+                
+                // Sử dụng hàm điều hướng tự động phát giảm thiểu xung đột bảo mật file:///
+                var playPromise = player.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        console.log("Đang phát đoạn: " + videoPlaylist[index]);
+                    }).catch(error => {
+                        console.log("Trình duyệt yêu cầu người dùng nhấn Play để phát video: ", error);
+                    });
+                }
+            }
+        }
+
+        // TỰ ĐỘNG KHỞI CHẠY ĐOẠN ĐẦU TIÊN KHI MỞ TRANG
+        window.addEventListener('DOMContentLoaded', () => {
+            if (videoPlaylist.length > 0) {
+                loadAndPlayVideo(0);
+            }
+        });
+
+        // Tự động chuyển đoạn tiếp theo khi đoạn video trước đó chạy hết
+        player.addEventListener('ended', function() {
+            currentVideoIndex++;
+            if (currentVideoIndex < videoPlaylist.length) {
+                loadAndPlayVideo(currentVideoIndex);
+            } else {
+                console.log("Đã xem xong toàn bộ các đoạn video.");
+            }
+        });
+    </script>
+</body>
+</html>
